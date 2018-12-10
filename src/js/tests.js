@@ -17,9 +17,7 @@ describe('Reserva de Horarios ⏰', function() {
     expect(restaurant.horarios).to.not.include('11');
     expect(restaurant.horarios.length).to.equal(cantidadPrevia - 1);
   });
-});
 
-describe('Reserva de Horarios ⏰', function() {
   it('Cuando se reserva un horario que el restaurant no posee, el arreglo se mantiene igual.', function() {
     var restaurant = new Restaurant(
       2,
@@ -35,9 +33,7 @@ describe('Reserva de Horarios ⏰', function() {
 
     expect(restaurant.horarios.length).to.equal(cantidadPrevia);
   });
-});
 
-describe('Reserva de Horarios ⏰', function() {
   it('Cuando se intenta reservar un horario pero no se le pasa ningún parámetro a la función, el arreglo se mantiene igual.', function() {
     var restaurant = new Restaurant(
       3,
@@ -71,35 +67,31 @@ describe('Reserva de Horarios ⏰', function() {
 
 describe('Obtener Puntuación ⭐️⭐⭐️️⭐️️⭐️️', function() {
   it('Dado un restaurant con determinadas calificaciones, la puntuación (que es el promedio de ellas) se calcula correctamente.', function() {
-    var restaurant = new Restaurant(
-      4,
-      'Nombre',
-      'Rubro',
-      'Ubicación',
-      ['10', '11', '12'],
-      'Imagen',
-      [4, 5]
-    );
-    var promedioCorrecto = (4 + 5) / 2;
+    var idRestaurante = 1; //El restaurant con Id 1 es TAO Uptown, con calificaciones [6, 7, 9, 10, 5]
 
-    expect().to.equal(promedioCorrecto);
+    var rest = listado.buscarRestaurante(idRestaurante); //obtengo el objeto restaurante
+
+    var sumaDeCalificaciones = 0; //guardo las calificaciones del resturant para sacar el promedio esperado
+    for (var i = 0; i < rest.calificaciones.length; i++) {
+      sumaDeCalificaciones += rest.calificaciones[i];
+    }
+    var promedioEsperado = sumaDeCalificaciones / rest.calificaciones.length; //obtengo el promedio esperado
+
+    expect(rest.obtenerPuntuacion()).to.equal(promedioEsperado); //hago la comparacion del promedio obtenido por el objeto restaurante con el promedio esperado calculado anteriormente
   });
-});
 
-describe('Obtener Puntuación ⭐️⭐⭐️️⭐️️⭐️️', function() {
   it('Dado un restaurant que no tiene ninguna calificación, la puntuación es igual a 0.', function() {
-    var restaurant = new Restaurant(
-      5,
-      'Nombre',
-      'Rubro',
-      'Ubicación',
-      ['10', '11', '12'],
-      'Imagen',
-      [5, 6]
+    //creo un restaurant sin calificaciones
+    var rest = new Restaurant(
+      6,
+      'Green salad',
+      'Ensalada',
+      'Berlín',
+      ['17:00', '19:00', '20:30'],
+      '../img/ensalada2.jpg',
+      []
     );
-    var cantidadPrevia = restaurant.horarios.length;
-    restaurant.reservarHorario('');
 
-    expect(restaurant.horarios.length).to.equal(cantidadPrevia);
+    expect(rest.obtenerPuntuacion()).to.equal(0);
   });
 });
