@@ -95,3 +95,50 @@ describe('Obtener Puntuación ⭐️⭐⭐️️⭐️️⭐️️', function() 
     expect(rest.obtenerPuntuacion()).to.equal(0);
   });
 });
+
+describe('Calificar 🔢➕➖✖️➗🔢', function() {
+  it('Verificar que dada una calificacion mayor a 0 y menor a 10, se ingrese correctamente al arreglo de calificaciones', function() {
+    var idRestaurante = 8; //El restaurant con Id 8 es Cafe Francoeur, con 5 calificaciones
+
+    var rest = listado.buscarRestaurante(idRestaurante); //obtengo el objeto restaurante
+    var cantidadCalificacionesAntesDeCalificar = rest.calificaciones.length; //guardo la cantidad de calificaciones
+
+    rest.calificar(6); //hago una calificacion
+
+    expect(rest.calificaciones.length).to.equal(
+      cantidadCalificacionesAntesDeCalificar + 1
+    ); //la cantidad de calificaciones del restaurant ahora deben ser igual a la cantidad de calificaciones guardadas antes de calificar una nueva, + 1
+  });
+});
+
+describe('Buscar Restaurante  🍱🍕🎂🥞🥡🍽🍴', function() {
+  it('Verificar que al buscar un restaurant inexistente, devuelta que no se encontró el restaurant', function() {
+    var idRestaurante = 29; //El restaurant con Id 29 no existe
+
+    var rest = listado.buscarRestaurante(idRestaurante); //Intento obtener el objeto restaurante
+
+    expect(rest).to.equal('No se ha encontrado ningún restaurant');
+  });
+});
+
+// //TEST 1
+// //Voy a testear que la funcion obtenerRestaurantes devuelva la cantidad de restaurantes esperados de acuerdo a los parámetros indicados
+// describe('Obtener cantidad de restaurantes por parámetro', function() {
+//   it('Verificar que se obtengan los restaurantes esperados de acuerdo a los parámetros dados', function() {
+//     var cantidadRestaurantes = listado.obtenerRestaurantes.length; //El restaurant con Id 29 no existe
+
+//     var rest = listado.obtenerRestaurantes('Pasta', 'Roma', '14:30'); //Debe obtener como resultado un solo restaurant (el restaurant Pastasciutta)
+
+//     expect(rest.length).to.equal(1);
+//   });
+// });
+
+describe('Obtener Restaurante  🍱🍕🎂🥞🥡🍽🍴', function() {
+  it('Verificar que se obtengan los restaurantes esperados de acuerdo a los parámetros dados', function() {
+    var cantidadRestaurantes = listado.obtenerRestaurantes.length; //El restaurant con Id 29 no existe
+
+    var rest = listado.obtenerRestaurantes('Pasta', 'Roma', '14:30'); //Debe obtener como resultado un solo restaurant (el restaurant Pastasciutta)
+
+    expect(rest.length).to.equal(1);
+  });
+});
