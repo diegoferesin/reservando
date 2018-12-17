@@ -67,24 +67,23 @@ describe('Reserva de Horarios ⏰', function() {
 
 describe('Obtener Puntuación ⭐️⭐⭐️️⭐️️⭐️️', function() {
   it('Dado un restaurant con determinadas calificaciones, la puntuación (que es el promedio de ellas) se calcula correctamente.', function() {
-    var idRestaurante = 1; //El restaurant con Id 1 es TAO Uptown, con calificaciones [6, 7, 9, 10, 5]
+    var idRestaurante = 1; //Calificaciones [6, 7, 9, 10, 5]
 
-    var rest = listado.buscarRestaurante(idRestaurante); //obtengo el objeto restaurante
-
-    var sumaDeCalificaciones = 0; //guardo las calificaciones del resturant para sacar el promedio esperado
+    var rest = listado.buscarRestaurante(idRestaurante);
+    var sumaDeCalificaciones = 0;
     for (var i = 0; i < rest.calificaciones.length; i++) {
       sumaDeCalificaciones += rest.calificaciones[i];
     }
-    var promedioEsperado = sumaDeCalificaciones / rest.calificaciones.length; //obtengo el promedio esperado
+    var promedioEsperado = sumaDeCalificaciones / rest.calificaciones.length;
 
-    expect(rest.obtenerPuntuacion()).to.equal(promedioEsperado); //hago la comparacion del promedio obtenido por el objeto restaurante con el promedio esperado calculado anteriormente
+    expect(rest.obtenerPuntuacion()).to.equal(promedioEsperado);
   });
 
   it('Dado un restaurant que no tiene ninguna calificación, la puntuación es igual a 0.', function() {
     //creo un restaurant sin calificaciones
     var rest = new Restaurant(
       6,
-      'Green salad',
+      'Green saladito',
       'Ensalada',
       'Berlín',
       ['17:00', '19:00', '20:30'],
@@ -98,46 +97,35 @@ describe('Obtener Puntuación ⭐️⭐⭐️️⭐️️⭐️️', function() 
 
 describe('Calificar 🔢➕➖✖️➗🔢', function() {
   it('Verificar que dada una calificacion mayor a 0 y menor a 10, se ingrese correctamente al arreglo de calificaciones', function() {
-    var idRestaurante = 8; //El restaurant con Id 8 es Cafe Francoeur, con 5 calificaciones
+    var idRestaurante = 8;
 
-    var rest = listado.buscarRestaurante(idRestaurante); //obtengo el objeto restaurante
-    var cantidadCalificacionesAntesDeCalificar = rest.calificaciones.length; //guardo la cantidad de calificaciones
+    var rest = listado.buscarRestaurante(idRestaurante);
+    var cantidadCalificacionesAntesDeCalificar = rest.calificaciones.length;
 
-    rest.calificar(6); //hago una calificacion
+    rest.calificar(6);
 
     expect(rest.calificaciones.length).to.equal(
       cantidadCalificacionesAntesDeCalificar + 1
-    ); //la cantidad de calificaciones del restaurant ahora deben ser igual a la cantidad de calificaciones guardadas antes de calificar una nueva, + 1
+    );
   });
 });
 
 describe('Buscar Restaurante  🍱🍕🎂🥞🥡🍽🍴', function() {
   it('Verificar que al buscar un restaurant inexistente, devuelta que no se encontró el restaurant', function() {
-    var idRestaurante = 29; //El restaurant con Id 29 no existe
+    var idRestaurante = 29;
 
-    var rest = listado.buscarRestaurante(idRestaurante); //Intento obtener el objeto restaurante
+    var rest = listado.buscarRestaurante(idRestaurante);
 
     expect(rest).to.equal('No se ha encontrado ningún restaurant');
   });
 });
 
-// //TEST 1
-// //Voy a testear que la funcion obtenerRestaurantes devuelva la cantidad de restaurantes esperados de acuerdo a los parámetros indicados
-// describe('Obtener cantidad de restaurantes por parámetro', function() {
-//   it('Verificar que se obtengan los restaurantes esperados de acuerdo a los parámetros dados', function() {
-//     var cantidadRestaurantes = listado.obtenerRestaurantes.length; //El restaurant con Id 29 no existe
-
-//     var rest = listado.obtenerRestaurantes('Pasta', 'Roma', '14:30'); //Debe obtener como resultado un solo restaurant (el restaurant Pastasciutta)
-
-//     expect(rest.length).to.equal(1);
-//   });
-// });
 
 describe('Obtener Restaurante  🍱🍕🎂🥞🥡🍽🍴', function() {
   it('Verificar que se obtengan los restaurantes esperados de acuerdo a los parámetros dados', function() {
-    var cantidadRestaurantes = listado.obtenerRestaurantes.length; //El restaurant con Id 29 no existe
+    var cantidadRestaurantes = listado.obtenerRestaurantes.length;
 
-    var rest = listado.obtenerRestaurantes('Pasta', 'Roma', '14:30'); //Debe obtener como resultado un solo restaurant (el restaurant Pastasciutta)
+    var rest = listado.obtenerRestaurantes('Pasta', 'Roma', '14:30');
 
     expect(rest.length).to.equal(1);
   });
